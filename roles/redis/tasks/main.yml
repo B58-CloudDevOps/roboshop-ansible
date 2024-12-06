@@ -12,7 +12,7 @@
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
-- name: Disabling Projected Move
+- name: Disabling Protected Move
   ansible.builtin.replace:
     path: /etc/redis/redis.conf
     regexp: 'protected-mode yes'
