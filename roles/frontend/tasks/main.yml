@@ -11,6 +11,11 @@
     path: /usr/share/nginx/html
     state: absent 
 
+- name: Creating UI Directoru
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory  
+
 - name: Download and extract 
   ansible.builtin.unarchive:
     src: "{{ url }}"
@@ -29,27 +34,10 @@
     enabled: true
     daemon_reload: true
 
-
-
-
 # - name: App Prequisite Tasks
 #   ansible.builtin.include_role:      # Through this we can all a specific task from a role
 #     name: common                     # Name of the role to be called 
 #     tasks_from: pre-req              # Name of the task in the above mentioned role 
 
-# - name: Restarting {{COMPONENT}}
-#   ansible.builtin.systemd_service:
-#     name: nginx 
-#     state: restarted
-#     enabled: true
-#     daemon_reload: true
-
-# - name: Changing the p
-#   ansible.builtin.file:
-#     path: /var/log/nginx
-#     recurse: yes
-#     owner: root
-#     group: root
-#     mode: '0775'
 
 
