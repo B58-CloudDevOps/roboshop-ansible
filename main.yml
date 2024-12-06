@@ -1,5 +1,5 @@
-- name: Roboship Playbook 
+- name: Roboshop Playbook 
   hosts: all 
   become: true 
   roles: 
-    - "{{ COMPONENT }}"
+    - "{{ component }}"

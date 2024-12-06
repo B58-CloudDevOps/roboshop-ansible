@@ -6,9 +6,9 @@ if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
     exit 89
 fi
 
-COMPONENT=$1 
-ENV=$2
-SSH_PASSWORD=$3
+component=$1 
+env=$2
+ssh_password=$3
 
-ansible-playbook -i ${COMPONENT}-${ENV}.roboshop.internal, -e ansible_user=ec2-user -e ansible_password=${SSH_PASSWORD} -e COMPONENT=${COMPONENT} -e ENV=${ENV} main.yml
+ansible-playbook -i ${component}-${env}.roboshop.internal, -e ansible_user=ec2-user -e ansible_password=${ssh_password} -e component=${component} -e ENV=${env} main.yml
 
