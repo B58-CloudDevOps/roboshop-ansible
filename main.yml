@@ -1,0 +1,5 @@
+- name: Roboship Playbook 
+  hosts: all 
+  become: true 
+  roles: 
+    - "{{ COMPONENT }}"
