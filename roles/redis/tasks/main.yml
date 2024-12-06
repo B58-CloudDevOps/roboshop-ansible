@@ -1,0 +1,30 @@
+- name: Enabling Redis 7 Module 
+  ansible.builtin.shell: dnf module disable redis ; dnf module enable redis:7 
+
+- name: Install {{component}}
+  ansible.builtin.dnf:
+    name: redis
+    state: latest
+
+- name: Replacing loopback ip
+  ansible.builtin.replace:
+    path: /etc/redis/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+# - name: Disabling protective mode 
+#   ansible.builtin.replace:
+#     path: /etc/redis/redis.conf
+#     regexp: '127.0.0.1'
+#     replace: '0.0.0.0'
+
+- name: Restarting {{component}}
+  ansible.builtin.systemd_service:
+    name: redis   
+    state: started
+    enabled: true
+
+- name: Configuring hostname
+  ansible.builtin.include_role:      # Through this we can all a specific task from a role
+    name: common                     # Name of the role to be called 
+    tasks_from: set-hostname         # Name of the task in the above mentioned role 
