@@ -1,0 +1,10 @@
+- name: Copying the repo
+  ansible.builtin.copy:
+    src: mongodb.repo 
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install {{COMPONENT}}
+  ansible.builtin.dnf:
+    name: mongodb-org 
+    state: latest
+
