@@ -45,7 +45,7 @@
     daemon_reload: true
 
 - name: Copying the repo
-  ansible.builtin.templates:
+  ansible.builtin.copy:
     src: mongo.repo 
     dest: /etc/yum.repos.d/mongo.repo
 
