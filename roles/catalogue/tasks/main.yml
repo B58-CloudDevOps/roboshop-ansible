@@ -44,6 +44,11 @@
     enabled: true
     daemon_reload: true
 
+- name: Copying the repo
+  ansible.builtin.copy:
+    src: mongo.repo 
+    dest: /etc/yum.repos.d/mongo.repo
+
 - name: Install MongoShell 
   ansible.builtin.dnf:
     name: mongodb-mongosh
