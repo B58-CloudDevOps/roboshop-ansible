@@ -19,10 +19,10 @@
 
 - name: Creating App User
   ansible.builtin.user:
-    name: "{{app_user}}"
+    name: "{{ app_user }}"
     comment: Application User 
 
-- name: Download and extract {{component}} app 
+- name: Download and extract {{ component }} app 
   ansible.builtin.unarchive:
     src: "{{ url }}"
     dest: /app 
