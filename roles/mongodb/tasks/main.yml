@@ -17,6 +17,6 @@
 - name: Restarting {{COMPONENT}}
   ansible.builtin.systemd_service:
     name: mongod  
-    state: restarted
+    state: started
     enabled: true
     daemon_reload: true
