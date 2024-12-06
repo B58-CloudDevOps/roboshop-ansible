@@ -24,4 +24,12 @@
 - name: Configuring hostname
   ansible.builtin.include_role:      # Through this we can all a specific task from a role
     name: common                     # Name of the role to be called 
-    tasks_from: set-hostname        # Name of the task in the above mentioned role 
+    tasks_from: set-hostname         # Name of the task in the above mentioned role 
+
+- name: Install MongoShell 
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: latest
+
+- name: Injecting the app  schema
+  ansible.builtin.shell: mongosh --host mongodb-{{env}}.roboshop.internal </app/db/master-data.js

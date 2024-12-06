@@ -25,7 +25,7 @@
 - name: Copying proxy file 
   ansible.builtin.template:
     src: nginx.conf
-    dest: /etc/nginx/nginx.conf  
+    dest: /etc/nginx/nginx.conf
 
 - name: Restarting {{component}}
   ansible.builtin.systemd_service:
