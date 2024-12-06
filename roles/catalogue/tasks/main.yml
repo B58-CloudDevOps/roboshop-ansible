@@ -37,13 +37,6 @@
     src: catalogue.service
     dest: /etc/systemd/system/catalogue.service
 
-- name: Restarting {{ component }}
-  ansible.builtin.systemd_service:
-    name: "{{ component }}"
-    state: restarted
-    enabled: true
-    daemon_reload: true
-
 - name: Copying the repo
   ansible.builtin.copy:
     src: mongo.repo 
@@ -57,10 +50,17 @@
 - name: Injecting the app  schema
   ansible.builtin.shell: mongosh --host mongodb-{{env}}.roboshop.internal </app/db/master-data.js
 
+- name: Restarting {{ component }}
+  ansible.builtin.systemd_service:
+    name: "{{ component }}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
+
 - name: Configuring hostname
   ansible.builtin.include_role:      # Through this we can all a specific task from a role
     name: common                     # Name of the role to be called 
-    tasks_from: set-hostname  # Name of the task in the above mentioned role 
+    tasks_from: set-hostname         # Name of the task in the above mentioned role 
 
 
 
