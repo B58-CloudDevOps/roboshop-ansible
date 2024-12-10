@@ -1,0 +1,2 @@
+secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-dev/data/rabbitmq token={{vault_token}} url=https://vault.roboshop.internal:8200 validate_certs=False') }}"
+appuser: roboshop

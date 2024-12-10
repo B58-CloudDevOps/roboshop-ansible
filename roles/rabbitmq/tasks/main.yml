@@ -1,0 +1,36 @@
+- name: Copying the repo
+  ansible.builtin.copy:
+    src: rabbitmq.repo 
+    dest: /etc/yum.repos.d/rabbitmq.repo
+
+
+- name: Install {{ component }}
+  ansible.builtin.dnf:
+    name: rabbitmq-server
+    state: latest
+
+- name: Installing hvac
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: vault-prereq
+
+- name: Starting {{ component }}
+  ansible.builtin.systemd_service:
+    name: mysqld  
+    state: started
+    enabled: true
+
+- name: Provisions {{ component }} app user 
+  community.rabbitmq.rabbitmq_user:
+    user: "{{ appuser }}"
+    password: "{{ secrets.app_password }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+
+- name: Configuring hostname
+  ansible.builtin.include_role:      
+    name: common                    
+    tasks_from: set-hostname
