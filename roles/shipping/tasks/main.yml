@@ -1,4 +1,4 @@
 - name: Configuring java app {{ component }} 
   ansible.builtin.include_role:      
     name: common                     
-    tasks_from: java 
+    tasks_from: java
