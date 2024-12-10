@@ -1,0 +1,4 @@
+- name: Installing vault pre-req package
+  ansible.builtin.dnf:
+    name: hvac
+    state: latest

@@ -3,6 +3,11 @@
     name: mysql-server
     state: latest
 
+- name: Installing hvac
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: vault-prereq
+
 - name: Starting {{ component }}
   ansible.builtin.systemd_service:
     name: mysqld  
@@ -10,7 +15,7 @@
     enabled: true
 
 - name: Configuring {{ component }} root password 
-  ansible.builtin.shell: mysql_secure_installation --set-root-pass RoboShop@1 || true 
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass {{ secrets.root_password }} || true 
 
 - name: Configuring hostname
   ansible.builtin.include_role:      
