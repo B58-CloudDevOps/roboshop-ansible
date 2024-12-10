@@ -1,2 +1,2 @@
 component: "mysql"
-secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-dev/data/mysql token={{vault_token}} url=https://vault.expense.internal:8200 validate_certs=False') }}"
+secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-dev/data/mysql token={{vault_token}} url=https://vault.roboshop.internal:8200 validate_certs=False') }}"
