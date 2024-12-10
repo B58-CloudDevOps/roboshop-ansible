@@ -16,7 +16,7 @@
 
 - name: Starting {{ component }}
   ansible.builtin.systemd_service:
-    name: mysqld  
+    name: rabbitmq-server   
     state: started
     enabled: true
 
