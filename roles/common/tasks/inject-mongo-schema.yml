@@ -1,0 +1,12 @@
+- name: Copying the repo
+  ansible.builtin.copy:
+    src: mongo.repo 
+    dest: /etc/yum.repos.d/mongo.repo
+  
+- name: Install MongoShell 
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: latest
+
+- name: Injecting the app  schema
+  ansible.builtin.shell: mongosh --host mongodb-{{env}}.roboshop.internal </app/db/master-data.js

@@ -6,27 +6,10 @@
     name: nodejs
     state: latest
 
-- name: Cleanup of old app 
-  ansible.builtin.file:
-    path: /app
-    state: absent 
-  ignore_errors: true   
-
-- name: Creating App Directory
-  ansible.builtin.file:
-    path: /app
-    state: directory  
-
-- name: Creating App User
-  ansible.builtin.user:
-    name: "{{ app_user }}"
-    comment: Application User 
-
-- name: Download and extract {{ component }} app 
-  ansible.builtin.unarchive:
-    src: "{{ url }}"
-    dest: /app 
-    remote_src: yes
+- name: Creates user & app directory
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: user-and-app-dir
 
 - name: Generating node_modules
   community.general.npm:
@@ -37,21 +20,11 @@
     src: "{{ component }}.service"
     dest: /etc/systemd/system/{{ component }}.service
 
-# Specific To Catalogue
-- name: Copying the repo
-  ansible.builtin.copy:
-    src: mongo.repo 
-    dest: /etc/yum.repos.d/mongo.repo
-
-# Specific To Catalogue
-- name: Install MongoShell 
-  ansible.builtin.dnf:
-    name: mongodb-mongosh
-    state: latest
-
-# Specific To Catalogue
-- name: Injecting the app  schema
-  ansible.builtin.shell: mongosh --host mongodb-{{env}}.roboshop.internal </app/db/master-data.js
+- name: Injecting MongoDB Schema
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: inject-mongo-schema 
+  when: setup_schema is defined and schema_type == "mongo"
 
 - name: Restarting {{ component }}
   ansible.builtin.systemd_service:
