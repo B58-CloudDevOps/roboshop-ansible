@@ -61,9 +61,9 @@
     daemon_reload: true
 
 - name: Configuring hostname
-  ansible.builtin.include_role:      # Through this we can all a specific task from a role
-    name: common                     # Name of the role to be called 
-    tasks_from: set-hostname         # Name of the task in the above mentioned role 
+  ansible.builtin.include_role:       # Through this we can all a specific task from a role
+    name: common                      # Name of the role to be called 
+    tasks_from: set-hostname          # Name of the task in the above mentioned role 
 
 
 
