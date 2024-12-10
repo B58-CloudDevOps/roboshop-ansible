@@ -2,7 +2,7 @@ git pull
 
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then 
     echo -e "\e[31m Input missing \e[0m"
-    echo -e "Expected Usage : \n\t\t   bash init.sh frontend dev DxxxPwd"
+    echo -e "Expected Usage : \n\t\t   bash init.sh frontend dev DxxxPwd  vaultToken" 
     exit 89
 fi
 
