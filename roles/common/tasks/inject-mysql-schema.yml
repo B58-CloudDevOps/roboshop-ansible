@@ -1,0 +1,8 @@
+- name: Install MongoShell 
+  ansible.builtin.dnf:
+    name: mysql 
+    state: latest
+
+- name: Injecting the mysql schema
+  loop: "{{ schema }}"
+  ansible.builtin.shell: mysql -h mysql-{{env}}.roboshop.internal  -uroot -pRoboShop@1 < /app/db/{{ item }}.sql

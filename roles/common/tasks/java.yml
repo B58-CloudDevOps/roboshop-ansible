@@ -1,0 +1,41 @@
+- name: Installing java 11 
+  ansible.builtin.dnf:
+    name: maven 
+    state: latest
+
+- name: Creates user & app directory
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: user-and-app-dir
+
+- name: Generating artifacts
+  community.builtin.shell: mvn clean package ; mv target/{{ component }}-1.0.jar {{ component }}.jar 
+  args: 
+   chdir: /app 
+
+- name: Injecting MongoDB Schema
+  ansible.builtin.include_role:       
+    name: common                      
+    tasks_from: inject-mongo-schema 
+  when: setup_schema is defined and schema_type == "mysql"
+
+- name: Configuring {{ component }} Systemd
+  ansible.builtin.template:
+    src: "{{ component }}.service"
+    dest: /etc/systemd/system/{{ component }}.service
+
+
+- name: Restarting {{ component }}
+  ansible.builtin.systemd_service:
+    name: "{{ component }}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
+
+- name: Configuring hostname
+  ansible.builtin.include_role:       # Through this we can all a specific task from a role
+    name: common                      # Name of the role to be called 
+    tasks_from: set-hostname          # Name of the task in the above mentioned role 
+
+
+
