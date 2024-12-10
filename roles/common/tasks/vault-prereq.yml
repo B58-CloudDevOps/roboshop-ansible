@@ -1,4 +1,2 @@
 - name: Installing vault pre-req package
-  ansible.builtin.dnf:
-    name: hvac
-    state: latest
+  ansible.builtin.shell: pip3 install hvac
