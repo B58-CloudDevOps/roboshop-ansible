@@ -13,10 +13,10 @@
   args: 
    chdir: /app 
 
-- name: Injecting MongoDB Schema
+- name: Injecting {{ component }} Schema
   ansible.builtin.include_role:       
     name: common                      
-    tasks_from: inject-mongo-schema 
+    tasks_from: inject-mysql-schema 
   when: setup_schema is defined and schema_type == "mysql"
 
 - name: Configuring {{ component }} Systemd
