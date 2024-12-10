@@ -1,6 +1,9 @@
-- name: Installing java 11 
+- name: Installing python
   ansible.builtin.dnf:
-    name: maven 
+    name: 
+      - python3
+      - gcc
+      - python3-devel
     state: latest
 
 - name: Creates user & app directory
@@ -9,15 +12,9 @@
     tasks_from: user-and-app-dir
 
 - name: Generating artifacts
-  ansible.builtin.shell: mvn clean package ; mv target/{{ component }}-1.0.jar {{ component }}.jar 
+  ansible.builtin.shell: pip3 install -r requirements.txt
   args: 
    chdir: /app 
-
-- name: Injecting {{ component }} Schema
-  ansible.builtin.include_role:       
-    name: common                      
-    tasks_from: inject-mysql-schema 
-  when: setup_schema is defined and schema_type == "mysql"
 
 - name: Configuring {{ component }} Systemd
   ansible.builtin.template:
