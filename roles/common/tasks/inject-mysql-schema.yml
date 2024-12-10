@@ -1,4 +1,4 @@
-- name: Install MongoShell 
+- name: Install mysql shell  
   ansible.builtin.dnf:
     name: mysql 
     state: latest
