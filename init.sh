@@ -11,5 +11,5 @@ env=$2
 ssh_password=$3
 vault_token=$4
 
-ansible-playbook -i ${component}-${env}.roboshop.internal, -e env=${env} -e ansible_user=ec2-user -e ansible_password=${ssh_password} -e component=${component} -e env=${env} -e vault_token=${vault_token}  main.yml
+ansible-playbook -i ${component}-${env}.cloudapps.today, -e env=${env} -e ansible_user=ec2-user -e ansible_password=${ssh_password} -e component=${component} -e env=${env} -e vault_token=${vault_token}  main.yml
 
