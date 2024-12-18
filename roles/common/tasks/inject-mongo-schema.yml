@@ -9,4 +9,4 @@
     state: latest
 
 - name: Injecting the app  schema
-  ansible.builtin.shell: mongosh --host mongodb-{{env}}.roboshop.internal </app/db/master-data.js
+  ansible.builtin.shell: mongosh --host mongodb-{{env}}.cloudapps.today </app/db/master-data.js
